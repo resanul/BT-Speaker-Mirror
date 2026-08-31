@@ -1,183 +1,133 @@
-# Bluetooth Speaker Mirror (Pro)
+# Bluetooth Speaker Mirror for Windows — Play Audio on Two Bluetooth Speakers at Once
 
-## Download
+**Bluetooth Speaker Mirror** is a lightweight Windows app that lets you
+**play the same audio on two Bluetooth speakers or headphones simultaneously**
+— something Windows 10 and Windows 11 don't support out of the box. Mirror
+Spotify, YouTube, games, Zoom calls, or literally any sound your PC plays,
+to two Bluetooth audio devices at the same time, in real time.
 
-⬇ **Download link: coming soon** — this repo is kept private (source
-protected), so the installer is distributed via a separate public link
-rather than GitHub Releases. Once published, the link will be added here.
-
-The app works immediately with a **free 7-day trial** — no key, no email,
-just install and use it. When the trial ends (or if you want to buy a
-permanent license before then), email **resanul@gmail.com** with your
-name — you'll get a license key back to paste into the app's
-"Enter License Key..." dialog to keep using it.
+📥 **[Download the installer](#download)** · 🎁 **7-day free trial, no signup required** · 📧 **[Get a license](#pricing--license)**
 
 ---
 
-A Windows app that mirrors **all** current system audio (YouTube, Spotify,
-games, calls — anything) to **two Bluetooth speakers/headphones at once**,
-with:
+## Table of Contents
 
-- A simple GUI (pick Speaker A / Speaker B from dropdowns)
-- **Independent volume control** per speaker (0–150%)
-- **Remembers** your last-used devices and volumes
-- **System tray icon** (Show / Start / Stop / Exit) — closing the window
-  minimizes to tray instead of quitting, if you want
-- Optional **"Start with Windows"**
-- A real Windows installer (`Setup.exe`) with a Start Menu shortcut
-- **Offline license activation** — a 7-day free trial, then a signed
-  license key unlocks it permanently (no internet/server needed). See
-  `licensing/README.md` — that's the part *you* (the seller) use to issue
-  keys to customers.
+- [Why this app exists](#why-this-app-exists)
+- [Features](#features)
+- [How it works](#how-it-works)
+- [System requirements](#system-requirements)
+- [Download](#download)
+- [Installation guide](#installation-guide)
+- [Free trial & pricing / license](#pricing--license)
+- [Frequently asked questions](#frequently-asked-questions)
+- [Support](#support)
 
-This builds on the earlier CLI script (`bt_speaker_mirror.py`) — same
-underlying WASAPI-loopback-via-PyAudioWPatch approach, now wrapped in a
-GUI and packaged as an installable app.
+## Why this app exists
 
-## Important: one build step happens on YOUR Windows machine
+Windows has no built-in way to **combine two Bluetooth audio outputs** or
+**play the same sound on multiple Bluetooth speakers**. If you've ever
+wanted to fill a room with two Bluetooth speakers, sync audio across two
+sets of headphones, or mirror your PC's sound to a second Bluetooth
+device for a party, presentation, or accessibility setup — Windows simply
+won't let you pick two Bluetooth outputs at once.
 
-I can't cross-compile a Windows `.exe` from the Linux sandbox this was
-written in — PyInstaller has to run on the target OS. So there's a
-**one-time** build step:
+**Bluetooth Speaker Mirror** solves this by capturing all current system
+audio and streaming it to two independently connected Bluetooth
+speakers or headphones at the same time — no cables, no third-party audio
+mixers, no registry hacks.
 
-1. You run `build\build.ps1` once on your Windows PC.
-2. That produces `dist\BTSpeakerMirror\BTSpeakerMirror.exe` and, if you
-   have Inno Setup installed, `installer\Output\BTSpeakerMirrorSetup.exe`
-   — a normal double-click installer you (or anyone else) can then use to
-   install the app, with a Start Menu shortcut, uninstaller, etc.
+## Features
 
-After that one build, you never need Python or this build step again to
-*use* the app — only if you want to change the code and rebuild.
+- 🔊 **Mirror ALL system audio** — Spotify, YouTube, games, calls,
+  notifications — anything Windows plays, mirrored live to two Bluetooth
+  devices.
+- 🎚 **Independent volume control** — separately adjust the volume of
+  Speaker A and Speaker B (0–150%) if one device is quieter than the
+  other.
+- 🖥 **Simple, clean GUI** — pick your two Bluetooth speakers from a
+  dropdown list, click Start, done.
+- 🔁 **Remembers your setup** — your last-used devices and volume levels
+  are saved automatically.
+- 🧰 **System tray support** — runs quietly in the background; closing
+  the window minimizes it instead of quitting.
+- ⚙️ **Optional auto-start with Windows** — have it ready every time you
+  log in.
+- 📦 **Real Windows installer** — a proper `Setup.exe` with a Start Menu
+  shortcut and clean uninstall, not a raw script.
 
-## Step 1: Run it from source first (recommended sanity check)
-
-Before packaging, confirm it actually runs on your machine:
-
-```powershell
-pip install --user -r requirements.txt
-python app\main.py
-```
-
-You should see the GUI window. Pick Speaker A and B, hit **Start
-Mirroring**, and play some audio.
-
-> Same PowerShell execution-policy note as before: if `.venv\Scripts\activate`
-> is blocked, just skip the venv and use `pip install --user ...` as above.
-
-## Step 1.5: Set up licensing (one time, before you sell/distribute)
-
-The app works fine in trial mode without this — but to actually issue
-paid license keys to customers, set up your private signing key once:
-
-```powershell
-cd licensing
-pip install cryptography
-python generate_license.py --init-keys
-```
-
-Copy the public key it prints into `app/license_manager.py`'s
-`PUBLIC_KEY_B64`, then rebuild (Step 2 below). Full details, including how
-to issue a key to a customer, are in `licensing/README.md`. Keep
-`private_key.pem` secret — never put it in a build you hand out.
-
-## Step 2: Build the installer (one time)
-
-```powershell
-.\build\build.ps1
-```
-
-This will:
-1. `pip install` the app's dependencies plus `pyinstaller`.
-2. Build `dist\BTSpeakerMirror\BTSpeakerMirror.exe`.
-3. If **Inno Setup** is installed, also compile
-   `installer\Output\BTSpeakerMirrorSetup.exe`.
-
-If Inno Setup isn't installed, the script tells you so and still leaves
-you with a fully working `BTSpeakerMirror.exe` (just not wrapped in a
-Setup.exe yet). Inno Setup is free: https://jrsoftware.org/isdl.php —
-install it, re-run `build\build.ps1`, done.
-
-## Step 3: Install
-
-Double-click `installer\Output\BTSpeakerMirrorSetup.exe`. It installs to
-your user's Program Files, adds a Start Menu entry (and optionally a
-Desktop shortcut, your choice during install), and registers an
-uninstaller. No admin rights required (per-user install).
-
-## Using the app
+## How it works
 
 1. Pair and connect both Bluetooth speakers/headphones in **Windows
-   Settings > Bluetooth & devices** first — this app doesn't pair devices.
-2. Open **Bluetooth Speaker Mirror**.
-3. Pick **Speaker A** and **Speaker B** from the dropdowns.
-4. Adjust the volume sliders if one speaker is louder than the other.
-5. Click **Start Mirroring**. Play anything — it should come out of both.
-6. Closing the window minimizes to the system tray by default (uncheck
-   "Minimize to tray when closed" if you'd rather it fully quit). Right-click
-   (or click, on some Windows versions) the tray icon for Show / Start /
-   Stop / Exit.
-7. Check **Start with Windows** if you want it running automatically at
-   login.
+   Settings → Bluetooth & devices** first.
+2. Open Bluetooth Speaker Mirror and select **Speaker A** and **Speaker B**
+   from the device list.
+3. Click **Start Mirroring** — whatever plays on your PC now comes out of
+   both speakers at once.
 
-Your device choices and volumes are remembered automatically (stored in
-`%APPDATA%\BTSpeakerMirror\config.json`) — devices are matched by name, so
-if a device isn't connected next time, you'll just need to reselect it.
+Internally, the app uses Windows' WASAPI audio loopback capture to grab
+your system's current audio output and re-streams it to two independent
+Bluetooth output devices in real time.
 
-## Known limitations (same underlying constraints as the CLI version)
+## System requirements
 
-- **Some latency drift between the two speakers is normal** — Bluetooth
-  transmission delay differs per device/chipset; this isn't fixable in
-  software.
-- WASAPI loopback only produces data while something is actually playing;
-  if Windows is completely silent, capture pauses until playback resumes.
-- If a Bluetooth device rejects the system audio's sample rate, this app
-  automatically falls back to that device's own default rate with a
-  lightweight on-the-fly resample.
-- "Start with Windows" uses the per-user registry Run key (no admin
-  needed), so it only starts the app for your Windows user account.
-- The audio source is always the current Windows **default playback
-  device** at the moment you click Start; if you change your system's
-  default output device while mirroring, restart mirroring to pick it up.
+- Windows 10 or Windows 11 (64-bit)
+- Two Bluetooth speakers or headphones, each already paired and
+  connected via Windows Bluetooth settings
+- No installation of Python or any other runtime needed — the installer
+  ships a fully standalone app
 
-## Troubleshooting
+## Download
 
-- **App won't start / crashes immediately** — run it from source
-  (`python app\main.py`) instead of the packaged exe to see the actual
-  error in the console.
-- **"No WASAPI host API found"** — you're not on Windows, or PyAudioWPatch
-  isn't installed correctly. Try `python -m pyaudiowpatch` to check.
-- **Tray icon doesn't appear** — `pystray`/`Pillow` failed to load; the app
-  still works without it (window-only), just without tray/minimize
-  support. Re-run `pip install -r requirements.txt` and check for errors.
-- **"Start with Windows" checkbox doesn't do anything** — it only works on
-  Windows (uses the registry); on any other OS it shows a message and
-  unchecks itself.
-- **Crackling/dropouts** — this is controlled by `blocksize` in
-  `%APPDATA%\BTSpeakerMirror\config.json` (default `1024`); try `2048` or
-  `4096` for more stability at the cost of latency (edit the file while
-  the app is closed, then relaunch).
+The installer (`BTSpeakerMirrorSetup.exe`) will be linked here.
+[Download link coming soon — check back shortly, or email
+resanul@gmail.com to get it directly.]
 
-## Project layout
+## Installation guide
 
-```
-bt_speaker_mirror_pro/
-  app/
-    main.py            GUI entry point
-    audio_engine.py    Core WASAPI loopback + dual-output mirroring engine
-    config.py          JSON config persistence
-    autostart.py       Windows "start with Windows" (registry Run key)
-    tray.py            System tray icon (pystray)
-    license_manager.py Offline license verification (ships PUBLIC key only)
-  licensing/
-    generate_license.py  PRIVATE tool - issues license keys (keep off customer downloads)
-    README.md             How to set up keys and issue licenses
-  assets/
-    icon.ico        App/installer icon
-    icon.png        Tray icon
-  build/
-    bt_speaker_mirror.spec  PyInstaller build spec
-    build.ps1               One-command build script (run on Windows)
-  installer/
-    setup.iss        Inno Setup installer script
-  requirements.txt
-```
+1. Download `BTSpeakerMirrorSetup.exe`.
+2. Run it — no admin rights required (installs to your user profile).
+3. Launch **Bluetooth Speaker Mirror** from the Start Menu.
+4. Pick your two Bluetooth devices and hit **Start Mirroring**.
+
+That's it — the app works immediately with a full-featured **7-day free
+trial**.
+
+## Pricing & License
+
+- ✅ **Free 7-day trial** — every install starts with full functionality
+  for 7 days. No email, no signup, no credit card.
+- 💳 **After the trial**, a license key is required to keep using the app.
+  Email **[resanul@gmail.com](mailto:resanul@gmail.com)** with your name
+  to get a license key — you'll paste it into the app's
+  "Enter License Key..." dialog to unlock it permanently.
+- 🔒 Licenses are verified fully **offline** — no internet connection or
+  account is ever required to run the app.
+
+## Frequently asked questions
+
+**Does this work with any Bluetooth speaker or headphone?**
+Yes — any Bluetooth audio device that Windows can pair and show as a
+playback device will work.
+
+**Will there be audio delay/lag between the two speakers?**
+A small amount of latency drift between the two speakers is normal and
+expected — this comes from Bluetooth's own transmission delay, which
+differs slightly per device, and isn't something any software can fully
+eliminate.
+
+**Do I need to keep both speakers exactly in sync sample-for-sample?**
+The app mirrors the same audio stream to both devices in real time; minor
+timing differences are inherent to Bluetooth audio hardware.
+
+**Can I use this with wired speakers too?**
+The app mirrors to any WASAPI playback device Windows recognizes,
+including wired outputs — it's not limited to Bluetooth only.
+
+**Is my data or audio sent anywhere online?**
+No. All audio processing happens entirely on your PC. Licensing is
+verified offline as well — nothing is uploaded or transmitted.
+
+## Support
+
+Questions, trial requests, or license purchases:
+📧 **resanul@gmail.com**
