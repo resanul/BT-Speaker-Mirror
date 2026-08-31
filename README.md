@@ -1,5 +1,19 @@
 # Bluetooth Speaker Mirror (Pro)
 
+## Download
+
+**[⬇ Download the latest installer](../../releases/latest)** — grab
+`BTSpeakerMirrorSetup.exe` from the Assets section of the latest release,
+run it, and follow the on-screen installer.
+
+The app works immediately with a **free 7-day trial** — no key, no email,
+just install and use it. When the trial ends (or if you want to buy a
+permanent license before then), email **resanul@gmail.com** with your
+name — you'll get a license key back to paste into the app's
+"Enter License Key..." dialog to keep using it.
+
+---
+
 A Windows app that mirrors **all** current system audio (YouTube, Spotify,
 games, calls — anything) to **two Bluetooth speakers/headphones at once**,
 with:
