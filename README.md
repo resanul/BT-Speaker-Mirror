@@ -2,9 +2,9 @@
 
 ## Download
 
-**[⬇ Download the latest installer](../../releases/latest)** — grab
-`BTSpeakerMirrorSetup.exe` from the Assets section of the latest release,
-run it, and follow the on-screen installer.
+⬇ **Download link: coming soon** — this repo is kept private (source
+protected), so the installer is distributed via a separate public link
+rather than GitHub Releases. Once published, the link will be added here.
 
 The app works immediately with a **free 7-day trial** — no key, no email,
 just install and use it. When the trial ends (or if you want to buy a
