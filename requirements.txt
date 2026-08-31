@@ -1,0 +1,5 @@
+PyAudioWPatch>=0.2.12.6,<0.3
+numpy>=1.24,<3
+pystray>=0.19,<1
+Pillow>=10.0,<12
+cryptography>=41.0,<47
