@@ -6,7 +6,7 @@
 Spotify, YouTube, games, Zoom calls, or literally any sound your PC plays,
 to two Bluetooth audio devices at the same time, in real time.
 
-📥 **[Download the installer](#download)** · 🎁 **7-day free trial, no signup required** · 📧 **[Get a license](#pricing--license)**
+📥 **[Download the installer](https://pub.hyperagent.com/api/published/pbf01M1CP9250_GWT8BC0XG9B0GT4K/BTSpeakerMirrorSetup.exe)** · 🎁 **7-day free trial, no signup required** · 📧 **[Get a license](#pricing--license)**
 
 ---
 
@@ -78,9 +78,10 @@ Bluetooth output devices in real time.
 
 ## Download
 
-The installer (`BTSpeakerMirrorSetup.exe`) will be linked here.
-[Download link coming soon — check back shortly, or email
-resanul@gmail.com to get it directly.]
+⬇ **[Download BTSpeakerMirrorSetup.exe](https://pub.hyperagent.com/api/published/pbf01M1CP9250_GWT8BC0XG9B0GT4K/BTSpeakerMirrorSetup.exe)**
+
+No account, sign-up, or payment needed to try it — the installer includes
+a full 7-day free trial.
 
 ## Installation guide
 
