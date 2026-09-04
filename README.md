@@ -78,7 +78,7 @@ Bluetooth output devices in real time.
 
 ## Download
 
-⬇ **[Download BTSpeakerMirrorSetup.exe](https://pub.hyperagent.com/api/published/pbf01M1CP9250_GWT8BC0XG9B0GT4K/BTSpeakerMirrorSetup.exe)**
+⬇ **[Download BTSpeakerMirrorSetup.exe](https://github.com/resanul/BT-Speaker-Mirror/releases/download/v1.0.1/BTSpeakerMirrorSetup.exe)**
 
 No account, sign-up, or payment needed to try it — the installer includes
 a full 7-day free trial.
